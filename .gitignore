@@ -1,2 +1,19 @@
 /.idea/
 *.iml
+
+### Backend ###
+/backend/target/
+/backend/!.mvn/wrapper/maven-wrapper.jar
+/backend/!**/src/main/**/target/
+/backend/!**/src/test/**/target/
+/backend/.apt_generated
+/backend/.classpath
+/backend/.factorypath
+/backend/.project
+/backend/.settings
+/backend/.springBeans
+/backend/.sts4-cache
+/backend/.mvn/
+/backend/mvnw
+/backend/mvnw.cmd
+/backend/src/main/resources/application-secrets.properties
