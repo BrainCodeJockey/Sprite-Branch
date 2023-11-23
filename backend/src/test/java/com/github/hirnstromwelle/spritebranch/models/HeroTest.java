@@ -23,4 +23,22 @@ class HeroTest {
         assertFalse(hero.hasItem("Item1"));
         assertTrue(hero.getItemIds().isEmpty());
     }
+    @Test
+    void testHeroEqualsAndHashCode() {
+        Hero hero1 = new Hero("1", "Hero", new HashSet<>());
+        Hero hero2 = new Hero("1", "Hero", new HashSet<>());
+        Hero hero3 = new Hero("2", "AnotherHero", new HashSet<>());
+
+        assertEquals(hero1, hero2);
+        assertNotEquals(hero1, hero3);
+
+        assertEquals(hero1.hashCode(), hero2.hashCode());
+        assertNotEquals(hero1.hashCode(), hero3.hashCode());
+    }
+
+    @Test
+    void testHeroToString() {
+        Hero hero = new Hero("1", "Hero", new HashSet<>());
+        assertNotNull(hero.toString());
+    }
 }
