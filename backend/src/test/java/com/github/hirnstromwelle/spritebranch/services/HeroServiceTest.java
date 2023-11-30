@@ -61,4 +61,17 @@ class HeroServiceTest {
         verify(heroRepository).save(heroToSave);
         assertEquals(savedHero, actualHero);
     }
+    @Test
+    void deleteHeroShouldDeleteHero() {
+        // GIVEN
+        String heroIdToDelete = "1";
+
+        // WHEN
+        doNothing().when(heroRepository).deleteById(heroIdToDelete);
+        heroService.deleteHero(heroIdToDelete);
+
+        // THEN
+        verify(heroRepository).deleteById(heroIdToDelete);
+    }
+
 }

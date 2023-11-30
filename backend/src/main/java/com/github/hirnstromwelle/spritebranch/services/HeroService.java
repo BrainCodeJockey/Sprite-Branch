@@ -18,4 +18,7 @@ public class HeroService {
     public Hero saveHero(Hero hero) {
         return heroRepository.save(hero);
     }
+
+    public void deleteHero(String id) {heroRepository.deleteById(id);
+    }
 }

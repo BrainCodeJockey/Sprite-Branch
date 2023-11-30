@@ -1,5 +1,4 @@
 package com.github.hirnstromwelle.spritebranch.models;
-
 import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;

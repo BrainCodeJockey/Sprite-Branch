@@ -16,4 +16,8 @@ public class ItemService {
     public Item createItem(Item item) {
         return itemRepository.save(item);
     }
+    public void deleteItem(String id) {
+        itemRepository.deleteById(id);
+    }
 }
+

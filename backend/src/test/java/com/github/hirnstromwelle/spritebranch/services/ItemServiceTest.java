@@ -50,4 +50,17 @@ class ItemServiceTest {
         verify(itemRepository).save(itemToCreate);
         assertEquals(createdItem, actualItem);
     }
+    @Test
+    void deleteItemShouldDeleteItem() {
+        // GIVEN
+        String itemIdToDelete = "1";
+
+        // WHEN
+        doNothing().when(itemRepository).deleteById(itemIdToDelete);
+        itemService.deleteItem(itemIdToDelete);
+
+        // THEN
+        verify(itemRepository).deleteById(itemIdToDelete);
+    }
+
 }
