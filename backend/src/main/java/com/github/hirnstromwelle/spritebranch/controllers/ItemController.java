@@ -4,7 +4,7 @@ import com.github.hirnstromwelle.spritebranch.models.Item;
 import com.github.hirnstromwelle.spritebranch.services.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -31,13 +31,10 @@ public class ItemController {
         Item createdItem = itemService.createItem(item);
         return modelMapper.map(createdItem, ItemDto.class);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable String id) {
-        try {
-            itemService.deleteItem(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItem(@PathVariable String id) {
+        itemService.deleteItem(id);
     }
 }

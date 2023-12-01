@@ -59,10 +59,11 @@ class SaveGameServiceTest {
         SaveGame saveGameToDelete = new SaveGame(saveIdToDelete, "HeroToDelete", "StateToDelete");
 
         // WHEN
-        when(saveGameRepository.findBySaveId(saveIdToDelete)).thenReturn(Optional.of(saveGameToDelete));
+        when(saveGameRepository.findById(saveIdToDelete)).thenReturn(Optional.of(saveGameToDelete));
         saveGameService.deleteSaveGame(saveIdToDelete);
 
         // THEN
         verify(saveGameRepository).delete(saveGameToDelete);
     }
+
 }

@@ -1,4 +1,7 @@
 package com.github.hirnstromwelle.spritebranch.controllers;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.hirnstromwelle.spritebranch.dto.HeroDto;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.HashSet;
+
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -17,6 +24,9 @@ class HeroControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void givenExistingHeroes_whenGetAllHeroes_thenStatusOkAndListOfHeroes() throws Exception {
@@ -51,7 +61,12 @@ class HeroControllerIntegrationTest {
     @Test
     void givenExistingHero_whenDeleteHero_thenStatusNoContent() throws Exception {
         // Given
-        String heroJson = "{\"id\":null,\"name\":\"TestHeroToDelete\",\"itemIds\":[]}";
+        HeroDto testHeroDto = new HeroDto();
+        testHeroDto.setName("TestHeroToDelete");
+        testHeroDto.setItemIds(new HashSet<>());
+
+        String heroJson = objectMapper.writeValueAsString(testHeroDto);
+
         MvcResult result = mockMvc.perform(post("/api/heroes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(heroJson))

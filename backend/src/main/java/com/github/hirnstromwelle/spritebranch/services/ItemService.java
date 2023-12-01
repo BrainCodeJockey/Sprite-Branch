@@ -4,6 +4,8 @@ import com.github.hirnstromwelle.spritebranch.repositorys.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ItemService {
@@ -13,11 +15,15 @@ public class ItemService {
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
+
     public Item createItem(Item item) {
         return itemRepository.save(item);
     }
+
     public void deleteItem(String id) {
-        itemRepository.deleteById(id);
+        Optional<Item> itemOptional = itemRepository.findById(id);
+        itemOptional.ifPresent(itemRepository::delete);
     }
 }
+
 

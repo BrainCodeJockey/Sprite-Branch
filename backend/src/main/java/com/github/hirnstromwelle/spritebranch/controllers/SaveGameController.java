@@ -4,7 +4,7 @@ import com.github.hirnstromwelle.spritebranch.models.SaveGame;
 import com.github.hirnstromwelle.spritebranch.services.SaveGameService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -30,13 +30,10 @@ public class SaveGameController {
         SaveGame savedSaveGame = saveGameService.saveSaveGame(saveGame);
         return modelMapper.map(savedSaveGame, SaveGameDto.class);
     }
+
     @DeleteMapping("/{saveId}")
-    public ResponseEntity<Void> deleteSaveGame(@PathVariable String saveId) {
-        try {
-            saveGameService.deleteSaveGame(saveId);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSaveGame(@PathVariable String saveId) {
+        saveGameService.deleteSaveGame(saveId);
     }
 }

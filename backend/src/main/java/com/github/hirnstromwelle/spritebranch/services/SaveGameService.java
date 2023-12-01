@@ -18,8 +18,9 @@ public class SaveGameService {
     public SaveGame saveSaveGame(SaveGame saveGame) {
         return saveGameRepository.save(saveGame);
     }
+
     public void deleteSaveGame(String saveId) {
-        Optional<SaveGame> saveGameOptional = saveGameRepository.findBySaveId(saveId);
+        Optional<SaveGame> saveGameOptional = saveGameRepository.findById(saveId);
         saveGameOptional.ifPresent(saveGameRepository::delete);
     }
 }
