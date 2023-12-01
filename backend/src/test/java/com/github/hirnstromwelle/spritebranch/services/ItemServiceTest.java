@@ -1,4 +1,5 @@
 package com.github.hirnstromwelle.spritebranch.services;
+
 import com.github.hirnstromwelle.spritebranch.models.Item;
 import com.github.hirnstromwelle.spritebranch.repositorys.ItemRepository;
 import org.junit.jupiter.api.Test;
@@ -6,7 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,9 +30,9 @@ class ItemServiceTest {
                 new Item("1", "Item1", "Type1", false),
                 new Item("2", "Item2", "Type2", true)
         );
+        when(itemRepository.findAll()).thenReturn(expectedItems);
 
         // WHEN
-        when(itemRepository.findAll()).thenReturn(expectedItems);
         List<Item> actualItems = itemService.getAllItems();
 
         // THEN
@@ -37,30 +41,58 @@ class ItemServiceTest {
     }
 
     @Test
+    void getAllItemsShouldReturnEmptyListIfNoItems() {
+        // GIVEN
+        when(itemRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // WHEN
+        List<Item> actualItems = itemService.getAllItems();
+
+        // THEN
+        verify(itemRepository).findAll();
+        assertTrue(actualItems.isEmpty());
+    }
+
+    @Test
     void createItemShouldReturnCreatedItem() {
         // GIVEN
         Item itemToCreate = new Item("1", "Item1", "Type1", false);
         Item createdItem = new Item("1", "Item1", "Type1", false);
+        when(itemRepository.save(any(Item.class))).thenReturn(createdItem);
 
         // WHEN
-        when(itemRepository.save(any(Item.class))).thenReturn(createdItem);
         Item actualItem = itemService.createItem(itemToCreate);
 
         // THEN
         verify(itemRepository).save(itemToCreate);
         assertEquals(createdItem, actualItem);
     }
+
     @Test
     void deleteItemShouldDeleteItem() {
         // GIVEN
         String itemIdToDelete = "1";
+        Item mockItem = new Item(itemIdToDelete, "Item1", "Type1", false);
+        when(itemRepository.findById(itemIdToDelete)).thenReturn(Optional.of(mockItem));
 
         // WHEN
-        doNothing().when(itemRepository).deleteById(itemIdToDelete);
         itemService.deleteItem(itemIdToDelete);
 
         // THEN
-        verify(itemRepository).deleteById(itemIdToDelete);
+        verify(itemRepository).findById(itemIdToDelete);
+        verify(itemRepository).delete(mockItem);
     }
+    @Test
+    void deleteItemShouldDoNothingIfItemNotFound() {
+        // GIVEN
+        String itemIdToDelete = "1";
+        when(itemRepository.findById(itemIdToDelete)).thenReturn(Optional.empty());
 
+        // WHEN
+        itemService.deleteItem(itemIdToDelete);
+
+        // THEN
+        verify(itemRepository).findById(itemIdToDelete);
+        verify(itemRepository, never()).delete(any(Item.class));
+    }
 }

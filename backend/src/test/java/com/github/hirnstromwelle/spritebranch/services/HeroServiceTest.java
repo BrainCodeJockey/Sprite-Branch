@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,13 +67,28 @@ class HeroServiceTest {
     void deleteHeroShouldDeleteHero() {
         // GIVEN
         String heroIdToDelete = "1";
+        Hero mockHero = new Hero(heroIdToDelete, "Hero1", new HashSet<>());
+        when(heroRepository.findById(anyString())).thenReturn(Optional.of(mockHero));
 
         // WHEN
-        doNothing().when(heroRepository).deleteById(heroIdToDelete);
         heroService.deleteHero(heroIdToDelete);
 
         // THEN
-        verify(heroRepository).deleteById(heroIdToDelete);
+        verify(heroRepository).findById(heroIdToDelete);
+        verify(heroRepository).delete(mockHero);
     }
 
+    @Test
+    void deleteHeroShouldDoNothingIfHeroNotFound() {
+        // GIVEN
+        String heroIdToDelete = "1";
+        when(heroRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        // WHEN
+        heroService.deleteHero(heroIdToDelete);
+
+        // THEN
+        verify(heroRepository).findById(heroIdToDelete);
+        verify(heroRepository, never()).delete(any(Hero.class));
+    }
 }
