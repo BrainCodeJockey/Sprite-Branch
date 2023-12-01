@@ -1,13 +1,14 @@
 package com.github.hirnstromwelle.spritebranch.services;
 import com.github.hirnstromwelle.spritebranch.models.SaveGame;
 import com.github.hirnstromwelle.spritebranch.repositorys.SaveGameRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,4 +52,18 @@ class SaveGameServiceTest {
         verify(saveGameRepository).save(saveGameToSave);
         assertEquals(savedSaveGame, actualSaveGame);
     }
+    @Test
+    void deleteSaveGameShouldDeleteSaveGame() {
+        // GIVEN
+        String saveIdToDelete = "1";
+        SaveGame saveGameToDelete = new SaveGame(saveIdToDelete, "HeroToDelete", "StateToDelete");
+
+        // WHEN
+        when(saveGameRepository.findById(saveIdToDelete)).thenReturn(Optional.of(saveGameToDelete));
+        saveGameService.deleteSaveGame(saveIdToDelete);
+
+        // THEN
+        verify(saveGameRepository).delete(saveGameToDelete);
+    }
+
 }

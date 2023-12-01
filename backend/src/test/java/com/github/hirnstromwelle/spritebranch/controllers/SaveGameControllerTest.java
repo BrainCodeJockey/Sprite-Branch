@@ -18,7 +18,12 @@ class SaveGameControllerIntegrationTest {
 
     @Test
     void getAllSaveGamesShouldReturnListOfSaveGames() throws Exception {
+        // GIVEN
+
+        // WHEN
         mockMvc.perform(get("/api/savegames"))
+
+                // THEN
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(0))));
@@ -26,15 +31,43 @@ class SaveGameControllerIntegrationTest {
 
     @Test
     void createSaveGameShouldReturnCreatedSaveGame() throws Exception {
+        // GIVEN
         String saveGameJson = "{\"heroId\":\"HeroId\",\"savedGameState\":\"GameState\"}";
+
+        // WHEN
+        mockMvc.perform(post("/api/savegames")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(saveGameJson))
+
+                // THEN
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.heroId").value("HeroId"))
+                .andExpect(jsonPath("$.savedGameState").value("GameState"))
+                .andExpect(jsonPath("$.saveId").isString());
+    }
+
+    @Test
+    void deleteSaveGameShouldReturnNoContent() throws Exception {
+        // GIVEN
+        String saveGameJson = "{\"heroId\":\"HeroToDelete\",\"savedGameState\":\"GameStateToDelete\"}";
 
         mockMvc.perform(post("/api/savegames")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(saveGameJson))
-                .andExpect(status().isOk()) // Adjusted to expect 200 OK
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.heroId").value("HeroId"))
-                .andExpect(jsonPath("$.savedGameState").value("GameState"))
-                .andExpect(jsonPath("$.saveId").doesNotExist());
+                .andExpect(jsonPath("$.saveId").exists());
+
+        // WHEN
+        String createdSaveGameId = mockMvc.perform(get("/api/savegames"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        // THEN
+        mockMvc.perform(delete("/api/savegames/{saveId}", createdSaveGameId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }

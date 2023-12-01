@@ -3,6 +3,7 @@ import com.github.hirnstromwelle.spritebranch.dto.HeroDto;
 import com.github.hirnstromwelle.spritebranch.models.Hero;
 import com.github.hirnstromwelle.spritebranch.services.HeroService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -30,4 +31,10 @@ public class HeroController {
         Hero savedHero = heroService.saveHero(hero);
         return modelMapper.map(savedHero, HeroDto.class);
     }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteHero(@PathVariable String id) {
+        heroService.deleteHero(id);
+    }
+
 }
