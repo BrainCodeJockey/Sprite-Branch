@@ -95,4 +95,24 @@ class ItemServiceTest {
         verify(itemRepository).findById(itemIdToDelete);
         verify(itemRepository, never()).delete(any(Item.class));
     }
+    @Test
+    void updateItemShouldUpdateAndReturnUpdatedItem() {
+        // GIVEN
+        String itemIdToUpdate = "1";
+        Item originalItem = new Item(itemIdToUpdate, "OriginalItem", "Type1", false);
+        Item updatedItem = new Item(itemIdToUpdate, "UpdatedItem", "Type2", true);
+
+        when(itemRepository.findById(itemIdToUpdate)).thenReturn(Optional.of(originalItem));
+        when(itemRepository.save(any(Item.class))).thenReturn(updatedItem);
+
+        // WHEN
+        Item actualUpdatedItem = itemService.updateItem(itemIdToUpdate, updatedItem);
+
+        // THEN
+        verify(itemRepository).findById(itemIdToUpdate);
+        verify(itemRepository).save(any(Item.class));
+        assertEquals(updatedItem.getName(), actualUpdatedItem.getName());
+        assertEquals(updatedItem.getType(), actualUpdatedItem.getType());
+        assertEquals(updatedItem.isFound(), actualUpdatedItem.isFound());
+    }
 }

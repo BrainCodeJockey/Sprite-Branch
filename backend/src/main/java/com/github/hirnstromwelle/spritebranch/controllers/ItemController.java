@@ -5,6 +5,7 @@ import com.github.hirnstromwelle.spritebranch.services.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
@@ -30,6 +31,12 @@ public class ItemController {
         Item item = modelMapper.map(itemDTO, Item.class);
         Item createdItem = itemService.createItem(item);
         return modelMapper.map(createdItem, ItemDto.class);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemDto> updateItem(@PathVariable String id, @Valid @RequestBody ItemDto itemDTO) {
+        Item updatedItem = itemService.updateItem(id, modelMapper.map(itemDTO, Item.class));
+        return ResponseEntity.ok(modelMapper.map(updatedItem, ItemDto.class));
     }
 
     @DeleteMapping("/{id}")

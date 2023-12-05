@@ -1,35 +1,36 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+.character-selection-container {
+    display: grid;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    justify-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin-top: 50px;
 }
 
 h1 {
-    color: rgb(128, 128, 128);
+    margin-top: 0;
     text-align: center;
+    color: rgb(0, 123, 255);
+    margin-bottom: 50px;
 }
 
-.save-game-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+
+.error-message {
+    color: rgb(255, 0, 0);
+    margin: 10px 0;
 }
 
-.save-game-card {
-    width: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: left;
-    transition: background-color 0.3s ease;
+.add-hero-button {
+    background-color: rgb(0, 123, 255);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: 100px;
 }
 
-.save-game-card:hover {
-    background-color: #f0f0f0;
+.add-hero-button:hover {
+    background-color: rgb(0, 86, 179);
 }
