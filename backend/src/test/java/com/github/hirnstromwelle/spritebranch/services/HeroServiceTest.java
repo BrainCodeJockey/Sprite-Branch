@@ -91,4 +91,23 @@ class HeroServiceTest {
         verify(heroRepository).findById(heroIdToDelete);
         verify(heroRepository, never()).delete(any(Hero.class));
     }
+    @Test
+    void updateHeroShouldUpdateAndReturnUpdatedHero() {
+        // GIVEN
+        String heroIdToUpdate = "1";
+        Hero originalHero = new Hero(heroIdToUpdate, "OriginalHero", new HashSet<>());
+        Hero updatedHero = new Hero(heroIdToUpdate, "UpdatedHero", new HashSet<>());
+
+        when(heroRepository.findById(heroIdToUpdate)).thenReturn(Optional.of(originalHero));
+        when(heroRepository.save(any(Hero.class))).thenReturn(updatedHero);
+
+        // WHEN
+        Hero actualUpdatedHero = heroService.updateHero(heroIdToUpdate, updatedHero);
+
+        // THEN
+        verify(heroRepository).findById(heroIdToUpdate);
+        verify(heroRepository).save(any(Hero.class)); // Using any(Hero.class) since the hero is modified in the service
+        assertEquals(updatedHero.getName(), actualUpdatedHero.getName());
+        assertEquals(updatedHero.getItemIds(), actualUpdatedHero.getItemIds());
+    }
 }

@@ -1,0 +1,22 @@
+.CharacterListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.error-message {
+    color: rgb(255, 0, 0);
+}
+
+.hero-name-input {
+    border: 1px solid rgb(204, 204, 204);
+}
+
+.add-hero-button {
+    background-color: rgb(0, 123, 255);
+}
+
+.add-hero-button:hover {
+    background-color: rgb(0, 86, 179);
+}

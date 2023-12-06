@@ -65,5 +65,23 @@ class SaveGameServiceTest {
         // THEN
         verify(saveGameRepository).delete(saveGameToDelete);
     }
+    @Test
+    void updateSaveGameShouldUpdateAndReturnUpdatedSaveGame() {
+        // GIVEN
+        String saveGameIdToUpdate = "1";
+        SaveGame originalSaveGame = new SaveGame(saveGameIdToUpdate, "Hero1", "State1");
+        SaveGame updatedSaveGame = new SaveGame(saveGameIdToUpdate, "UpdatedHero", "UpdatedState");
 
+        when(saveGameRepository.findById(saveGameIdToUpdate)).thenReturn(Optional.of(originalSaveGame));
+        when(saveGameRepository.save(any(SaveGame.class))).thenReturn(updatedSaveGame);
+
+        // WHEN
+        SaveGame actualUpdatedSaveGame = saveGameService.updateSaveGame(saveGameIdToUpdate, updatedSaveGame);
+
+        // THEN
+        verify(saveGameRepository).findById(saveGameIdToUpdate);
+        verify(saveGameRepository).save(any(SaveGame.class));
+        assertEquals(updatedSaveGame.getHeroId(), actualUpdatedSaveGame.getHeroId());
+        assertEquals(updatedSaveGame.getSavedGameState(), actualUpdatedSaveGame.getSavedGameState());
+    }
 }
