@@ -1,6 +1,4 @@
 body {
-    margin: 0;
-    padding: 0;
     overflow: hidden;
 }
 
@@ -13,6 +11,7 @@ body {
     background-size: cover;
     background-position: center;
     z-index: -1;
+    background-image: url('../../assets/background-image.png'); /* Stellen Sie sicher, dass dieser Pfad korrekt ist */
 }
 
 h1,

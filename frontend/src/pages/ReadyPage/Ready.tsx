@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../../assets/background-image.png';
 import './Ready.css';
 
 const characterSelectionPath = '/character-selection';
@@ -22,9 +21,8 @@ export default function Ready() {
     };
 
     return (
-        <section  className="ready-container">
-            <img className="background-image" style={{ backgroundImage: `url(${backgroundImage})` }} alt="background"></img>
-
+        <section className="ready-container">
+            <div className="background-image"></div>
             <div className="clouds">
                 {Array.from({ length: 5 }, (_, index) => (
                     <div className={`cloud x${index + 1}`} key={index}></div>
@@ -43,6 +41,6 @@ export default function Ready() {
                     </button>
                 </Link>
             </div>
-        </section >
+        </section>
     );
 }
