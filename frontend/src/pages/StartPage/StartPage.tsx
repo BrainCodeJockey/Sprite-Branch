@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './StartPage.css';
+import "../../App.css";
 
 const StartPage: React.FC = () => {
     return (
         <main className="startPageContainer">
             <header>
-                <h1 className="startPageTitle">Szene Eins</h1>
+                <h1 className="startPageTitle">Szene Start - Dorf</h1>
             </header>
 
             <nav className="choices">
                 <Link to="/berge"><button className="medievalButton">Gehe zu den Bergen</button></Link>
-                <Link to="/burg"><button className="medievalButton">Gehe zur Burg</button></Link>
+                <Link to="/schloss"><button className="medievalButton">Gehe zum Schloss</button></Link>
                 <Link to="/unbekannt"><button className="medievalButton">Gehe ins Unbekannte</button></Link>
             </nav>
 
@@ -29,5 +30,6 @@ const StartPage: React.FC = () => {
         </main>
     );
 };
+
 
 export default StartPage;
