@@ -12,11 +12,6 @@
     margin-bottom: 10px;
 }
 
-.error-message {
-    color: rgb(255, 0, 0);
-    margin-bottom: 10px;
-}
-
 .update-hero-input {
     padding: 8px;
     margin-bottom: 10px;
@@ -25,11 +20,13 @@
 }
 
 .update-hero-button {
+    min-width: 150px;
+    height: 40px;
+    padding: 8px 16px;
     background-color: rgb(0, 123, 255);
     color: white;
     border: none;
     border-radius: 4px;
-    padding: 8px 16px;
     cursor: pointer;
 }
 
@@ -38,6 +35,8 @@
 }
 
 .cancel-button {
+    min-width: 150px;
+    height: 40px;
     background-color: rgb(255, 165, 0);
     color: white;
     border: none;
