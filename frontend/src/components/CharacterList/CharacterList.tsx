@@ -20,9 +20,11 @@ const CharacterList: React.FC<CharacterListProps> = ({
                 const hero = heroes.find(h => h.id === saveGame.heroId);
 
                 return (
-                    <div className="save-game-card-container" key={saveGame.saveId}>
-                        <p className="hero-name">Name: {hero?.name ?? 'Unknown'}</p>
-                        <p className="location">Location: {location.pathname}</p> {/* Use location.pathname */}
+                    <article className="save-game-card-container" key={saveGame.saveId}>
+                        <header>
+                            <h2 className="hero-name">Name: {hero?.name ?? 'Unknown'}</h2>
+                        </header>
+                        <p className="location">Location: {location.pathname}</p>
                         <DeleteSaveGame
                             saveGame={saveGame}
                             onDeleteSaveGame={() => onDeleteSaveGame(saveGame.saveId)}
@@ -31,12 +33,12 @@ const CharacterList: React.FC<CharacterListProps> = ({
                         <button className="update-hero-button" onClick={() => onUpdateHeroClick(hero)}>
                             Update Hero
                         </button>
-                        <Link to={location.pathname === '/character-selection' ? '/start' : location.pathname}>
-                            <button className="start-button">
-                                Start
-                            </button>
-                        </Link>
-                    </div>
+                            <Link to={location.pathname === '/character-selection' ? '/start' : location.pathname}>
+                                <button className="start-button">
+                                    Start
+                                </button>
+                            </Link>
+                    </article>
                 );
             })}
         </section>
