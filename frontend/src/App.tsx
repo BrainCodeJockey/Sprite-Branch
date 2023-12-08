@@ -36,21 +36,17 @@ export default function App() {
                 }
             }
         };
-        fetchDataAndUpdate()
-            .catch((error) => {
-                console.error('Fehler beim Laden der Daten:', error);
-            });
+
+        fetchDataAndUpdate();
 
         if (shouldUpdate) {
             fetchDataAndUpdate()
                 .then(() => {
                     setShouldUpdate(false);
-                })
-                .catch((error) => {
-                    console.error('Fehler beim Laden der Daten:', error);
                 });
         }
     }, [shouldUpdate]);
+
 
     return (
         <Router>

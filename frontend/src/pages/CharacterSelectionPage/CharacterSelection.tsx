@@ -68,11 +68,11 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                 <UpdateHero
                     hero={updatingHero}
                     onUpdateHero={(updatedHero) => {
-                        setHeroes((prevHeroes) =>
-                            prevHeroes.map((hero) =>
-                                hero.id === updatedHero.id ? updatedHero : hero
-                            )
-                        );
+                        setHeroes(prevHeroes => {
+                            return prevHeroes.map(hero => {
+                                return hero.id === updatedHero.id ? updatedHero : hero;
+                            });
+                        });
                         setUpdatingHeroDialogOpen(false);
                     }}
                     onClose={() => setUpdatingHeroDialogOpen(false)}
