@@ -11,10 +11,9 @@ body {
     background-size: cover;
     background-position: center;
     z-index: -1;
-    background-image: url('../../assets/background-image.png'); /* Stellen Sie sicher, dass dieser Pfad korrekt ist */
+    background-image: url('../../assets/background-image.png');
 }
 
-h1,
 .experience-button {
     font-size: 2rem;
     color: white;
@@ -22,17 +21,7 @@ h1,
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
-}
-
-h1 {
-    top: 10%;
-    text-align: center;
-}
-
-.experience-button {
     bottom: 10%;
-    font-size: 3rem;
-    color: #fff;
     background-color: #acc7ed;
     border-radius: 10rem;
     padding: 1.5rem 4rem 2rem;
@@ -90,10 +79,7 @@ h1 {
 
 #clouds {
     padding: 100px 0;
-    background: #c9dbe9;
-    background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
-    background: linear-gradient(to bottom, #c9dbe9 0%, #fff 100%);
-    background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+    background: linear-gradient(0deg, #c9dbe9 0%, #fff 100%);
     position: absolute;
     bottom: 0;
     left: 0;
