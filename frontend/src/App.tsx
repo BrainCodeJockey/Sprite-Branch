@@ -36,11 +36,6 @@ export default function App() {
                 }
             }
         };
-        fetchDataAndUpdate()
-            .catch((error) => {
-                console.error('Fehler beim Laden der Daten:', error);
-            });
-
         if (shouldUpdate) {
             fetchDataAndUpdate()
                 .then(() => {
@@ -49,6 +44,11 @@ export default function App() {
                 .catch((error) => {
                     console.error('Fehler beim Laden der Daten:', error);
                 });
+        } else {
+         fetchDataAndUpdate()
+            .catch((error) => {
+                console.error('Fehler beim Laden der Daten:', error);
+            });
         }
     }, [shouldUpdate]);
 
