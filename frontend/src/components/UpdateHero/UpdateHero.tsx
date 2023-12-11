@@ -43,7 +43,7 @@ const UpdateHero: React.FC<UpdateHeroProps> = ({ hero, onUpdateHero, onClose }) 
     };
 
     return (
-        <div className="update-hero-container">
+        <form className="update-hero-form">
             <h2 className="update-hero-title">Update Hero</h2>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
             <input
@@ -55,7 +55,7 @@ const UpdateHero: React.FC<UpdateHeroProps> = ({ hero, onUpdateHero, onClose }) 
             />
             <button className="update-hero-button" onClick={handleUpdateHeroSubmit}>Update Hero</button>
             <button className="cancel-button" onClick={onClose}>Cancel</button>
-        </div>
+        </form>
     );
 };
 

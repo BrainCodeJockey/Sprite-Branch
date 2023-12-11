@@ -1,16 +1,18 @@
 import React from 'react';
-import SceneLayout from '../../components/SceneLayout/SceneLayout.tsx';
+import SceneLayout from '../../components/SceneLayout/SceneLayout';
 import backgroundImage from '../../assets/Start.png';
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import useSaveGameState from "../../hooks/useSaveGameState";
 
 const StartPage: React.FC = () => {
+    const location = useLocation();
+    useSaveGameState(location.pathname);
+
     const navLinks = [
         { path: "/berge", label: "Gehe zu den Bergen" },
         { path: "/schloss", label: "Gehe zum Schloss" },
         { path: "/unbekannt", label: "Gehe ins Unbekannte" }
     ];
-
-    const location = useLocation();
 
     return (
         <SceneLayout

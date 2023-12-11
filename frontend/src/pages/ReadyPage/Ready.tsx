@@ -7,11 +7,8 @@ const characterSelectionPath = '/character-selection';
 
 export default function Ready() {
     const [isHovered, setIsHovered] = useState(false);
+    const zeldaButton = 'src/assets/zelda_button.svg';
 
-    const buttonStyle = {
-        width: 200,
-        height: 100,
-    };
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -30,15 +27,15 @@ export default function Ready() {
                 ))}
             </div>
             <div className="content">
-                <h1>Sprite-Branch</h1>
+                <h1 className="zelda-title">Sprite-Branch</h1>
                 <Link to={characterSelectionPath}>
                     <button
-                        style={buttonStyle}
-                        className={`experience-button ${isHovered ? 'hovered' : ''}`}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
+                        className={`zelda-button ${isHovered ? 'hovered' : ''}`}
+                        aria-label="Play"
                     >
-                        Play
+                        <img src={zeldaButton} alt="Play" />
                     </button>
                 </Link>
             </div>

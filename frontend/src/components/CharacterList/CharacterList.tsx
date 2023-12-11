@@ -22,7 +22,7 @@ const CharacterList: React.FC<CharacterListProps> = ({
                 return (
                     <div className="save-game-card-container" key={saveGame.saveId}>
                         <p className="hero-name">Name: {hero?.name ?? 'Unknown'}</p>
-                        <p className="location">Location: {location.pathname}</p> {/* Use location.pathname */}
+                        <p className="location">Location: {location.pathname}</p>
                         <DeleteSaveGame
                             saveGame={saveGame}
                             onDeleteSaveGame={() => onDeleteSaveGame(saveGame.saveId)}
