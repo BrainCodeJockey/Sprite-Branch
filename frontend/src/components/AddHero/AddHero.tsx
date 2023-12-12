@@ -43,6 +43,7 @@ const AddHero: React.FC<AddHeroProps> = ({ onAddHero, setShouldUpdate, onClose }
     return (
         <form className="add-hero-form" onSubmit={handleAddHeroSubmit}>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
+            <h1>Heldennamen eintragen:</h1>
             <input
                 className="hero-name-input"
                 type="text"

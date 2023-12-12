@@ -49,7 +49,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
     return (
         <section style={{backgroundImage: `url(${backgroundImage})`}} className="character-selection-container">
 
-            <h1>Saved Games</h1>
+            <h1 className="zelda-title">Character List</h1>
             <CharacterList
                 saveGames={saveGames}
                 heroes={heroes}

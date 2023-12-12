@@ -2,14 +2,17 @@ import React from 'react';
 import SceneLayout from '../../components/SceneLayout/SceneLayout.tsx';
 import backgroundImage from '../../assets/sceneTwo.png';
 import {useLocation} from "react-router-dom";
+import useSaveGameState from "../../hooks/useSaveGameState";
 
 const SceneTwoPage: React.FC = () => {
+    const location = useLocation();
+    useSaveGameState(location.pathname);
+
+
     const navLinks = [
         { path: "/innere", label: "Weiter gehen ins Innere" },
         { path: "/umgebung", label: "Gehe zur Burg" }
     ];
-
-    const location = useLocation();
 
     return (
         <SceneLayout
